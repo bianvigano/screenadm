@@ -81,6 +81,19 @@ screenadm apply myapp.cfg
 screenadm menu
 ```
 
+### 3. Perintah Dasar Terminal
+
+| Perintah | Deskripsi |
+| :--- | :--- |
+| `./screenadm apply myapp.cfg` | Membangun/update sesi berdasarkan config. |
+| `./screenadm menu` | Buka Dashboard Interaktif (TUI). |
+| `./screenadm status` | Cek semua sesi yang aktif. |
+| `./screenadm down web-stack` | Matikan sesi `web-stack` secara bersih. |
+| `./screenadm up web-stack` | Hidupkan kembali sesi dari cache konfigurasi terakhir. |
+| `./screenadm attach web-stack` | Masuk ke sesi dengan menu pilihan window. |
+
+
+
 ---
 
 ## 📝 Contoh Konfigurasi
