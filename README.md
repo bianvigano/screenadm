@@ -1,50 +1,91 @@
-# screenadm v3.0
 
-[cite_start]**screenadm** adalah manager berbasis POSIX shell script untuk GNU Screen yang dirancang untuk otomatisasi sesi dan window secara deklaratif[cite: 1]. [cite_start]Alat ini memungkinkan Anda mengelola aplikasi multi-window yang kompleks hanya dengan satu file konfigurasi[cite: 1, 9].
+# 📺 screenadm v3.0
+
+**screenadm** adalah *session manager* berbasis POSIX shell untuk GNU Screen yang memungkinkan Anda mengelola aplikasi multi-window secara deklaratif hanya dengan satu file konfigurasi.
+
+---
+
+## 📌 Daftar Isi
+
+* [Fitur](#-fitur-utama)
+* [Instalasi](#-instalasi)
+* [Penggunaan](#-cara-penggunaan)
+* [Contoh Konfigurasi](#-contoh-konfigurasi)
+* [Tips](#-tips)
+
+---
 
 ## ✨ Fitur Utama
 
-* [cite_start]**Declarative Apply**: Terapkan konfigurasi (TITLE, DIR, ENV, CMD) secara otomatis dan bersifat *idempotent* (tidak membuat window duplikat)[cite: 1, 11].
-* [cite_start]**Interactive TUI Menu**: Dashboard interaktif menggunakan navigasi panah atau Vim keys (`j/k/h/l`) untuk manajemen sesi yang cepat[cite: 1, 102].
-* [cite_start]**Auto-Respawn**: Fitur `WINn_RESPAWN="yes"` untuk memastikan window otomatis berjalan kembali jika proses di dalamnya berhenti[cite: 1].
-* [cite_start]**Healthcheck**: Integrasi pengecekan kesehatan aplikasi secara langsung di dalam dashboard[cite: 1, 36].
-* [cite_start]**Namespace Support**: Mengisolasi sesi menggunakan prefix sehingga tidak bentrok dengan sesi screen lainnya[cite: 1, 12].
-* [cite_start]**Remote Management**: Mendukung penerapan konfigurasi ke server remote melalui SSH/SCP[cite: 1].
-* **Zero Dependencies**: Hanya membutuhkan `/bin/sh` standar dan `screen`. [cite_start]Tidak memerlukan `grep`, `sed`, atau `awk` eksternal untuk fungsi intinya[cite: 1, 2].
+* **Declarative Apply**
+  Terapkan konfigurasi (`TITLE`, `DIR`, `ENV`, `CMD`) secara otomatis dan *idempotent* (tidak membuat window duplikat).
+
+* **Interactive TUI Menu**
+  Dashboard interaktif dengan navigasi panah atau Vim keys (`h/j/k/l`).
+
+* **Auto-Respawn**
+  Window dapat otomatis restart jika proses berhenti (`WINn_RESPAWN="yes"`).
+
+* **Healthcheck**
+  Monitoring kesehatan aplikasi langsung dari dashboard.
+
+* **Namespace Support**
+  Isolasi sesi menggunakan prefix agar tidak bentrok.
+
+* **Remote Management**
+  Deploy dan kelola sesi ke server remote via SSH/SCP.
+
+* **Zero Dependencies**
+  Hanya membutuhkan `/bin/sh` dan `screen` (tanpa `grep`, `sed`, `awk` eksternal).
+
+---
 
 ## 🚀 Instalasi
 
-1.  Unduh file `screenadm.sh`.
-2.  Berikan izin eksekusi:
-    ```bash
-    chmod +x screenadm.sh
-    ```
-3.  Pindahkan ke folder PATH Anda (opsional):
-    ```bash
-    mv screenadm.sh /usr/local/bin/screenadm
-    ```
+1. Unduh file `screenadm.sh`
+2. Berikan izin eksekusi:
+
+```bash
+chmod +x screenadm.sh
+```
+
+3. (Opsional) Pindahkan ke PATH:
+
+```bash
+mv screenadm.sh /usr/local/bin/screenadm
+```
+
+---
 
 ## 🛠️ Cara Penggunaan
 
 ### 1. Membuat Template Konfigurasi
-Anda bisa memulai dengan mencetak template bawaan:
+
 ```bash
-./screenadm template fullstack > myapp.cfg
+screenadm template fullstack > myapp.cfg
 ```
+
+---
 
 ### 2. Menerapkan Konfigurasi
-Jalankan sesi berdasarkan file `.cfg` yang telah dibuat:
+
 ```bash
-./screenadm apply myapp.cfg
+screenadm apply myapp.cfg
 ```
 
-### 3. Menggunakan Dashboard (TUI)
-Masuk ke menu interaktif untuk mengontrol semua sesi:
+---
+
+### 3. Membuka Dashboard (TUI)
+
 ```bash
-./screenadm menu
+screenadm menu
 ```
 
-## 📝 Contoh Konfigurasi (`myapp.cfg`)
+---
+
+## 📝 Contoh Konfigurasi
+
+File: `myapp.cfg`
 
 ```bash
 SESSION="prod-app"
@@ -62,5 +103,12 @@ WIN1_HEALTHCHECK='curl -s localhost:3000/health'
 WIN2_TITLE="logs"
 WIN2_CMD="tail -f /var/log/app.log"
 ```
-[cite_start]
-http://googleusercontent.com/immersive_entry_chip/0
+
+---
+
+## 💡 Tips
+
+* Gunakan `RESPAWN="yes"` untuk service penting agar tetap berjalan.
+* Tambahkan `HEALTHCHECK` untuk monitoring otomatis.
+* Gunakan namespace jika menjalankan banyak proyek sekaligus.
+* Simpan file `.cfg` di repo project untuk versioning.
